@@ -34,7 +34,11 @@ export LESS_TERMCAP_us=$'\E[01;32m'      # Begins underline.
 export EDITOR="nvim"
 
 cargo_bin="$HOME/.cargo/bin/"
-
 if [[ -d $cargo_bin ]]; then
     path=($cargo_bin $path)
+fi
+
+local_bin="$HOME/.local/bin/"
+if [[ -d $local_bin ]]; then
+    path=($local_bin $path)
 fi
