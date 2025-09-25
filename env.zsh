@@ -42,3 +42,7 @@ local_bin="$HOME/.local/bin/"
 if [[ -d $local_bin ]]; then
     path=($local_bin $path)
 fi
+home_bin="$HOME/bin/"
+if [[ -d $local_bin ]]; then
+    path=($home_bin $path)
+fi
