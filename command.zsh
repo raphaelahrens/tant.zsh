@@ -33,21 +33,6 @@ alias type='type -a'
 
 alias ls="${aliases[ls]:-ls} -G"
 
-if (( $+commands[xclip] )); then
-  alias pbcopy='xclip -selection clipboard -in'
-  alias pbpaste='xclip -selection clipboard -out'
-elif (( $+commands[xsel] )); then
-  alias pbcopy='xsel --clipboard --input'
-  alias pbpaste='xsel --clipboard --output'
-fi
-
-# File Download
-if (( $+commands[curl] )); then
-  alias get='curl --continue-at - --location --progress-bar --remote-name --remote-time'
-elif (( $+commands[wget] )); then
-  alias get='wget --continue --progress=bar --timestamping'
-fi
-
 # Resource Usage
 alias df='df -kh'
 alias du='du -kh'
@@ -71,15 +56,6 @@ function slit {
   awk "{ print ${(j:,:):-\$${^@}} }"
 }
 
-# Finds files and executes a command on them.
-#function find-exec {
-#  find . -type f -iname "*${1:-}*" -exec "${2:-file}" '{}' \;
-#}
-
-# Displays user owned processes status.
-function psu {
-  ps -U "${1:-$LOGNAME}" -o 'pid,%cpu,%mem,command' "${(@)argv[2,-1]}"
-}
 function owner_path {
 	if [[ $# -eq 0 ]]; then
         printf 'usage:\n   owner_path $dir\n'
