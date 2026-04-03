@@ -89,10 +89,6 @@ zstyle ':completion:*:history-words' menu yes
 # Environmental Variables
 zstyle ':completion::*:(-command-|export):*' fake-parameters ${${${_comps[(I)-value-*]#*,}%%,*}:#-*-}
 
-# Populate hostname completion. But allow ignoring custom entries from static
-# */etc/hosts* which might be uninteresting.
-zstyle -a ':prezto:module:completion:*:hosts' etc-host-ignores '_etc_host_ignores'
-
 zstyle -e ':completion:*:hosts' hosts 'reply=(
   ${=${=${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) 2> /dev/null)"}%%[#| ]*}//\]:[0-9]*/ }//,/ }//\[/ }
   ${=${(f)"$(cat /etc/hosts(|)(N) <<(ypcat hosts 2> /dev/null))"}%%(\#${_etc_host_ignores:+|${(j:|:)~_etc_host_ignores}})*}
@@ -126,12 +122,6 @@ zstyle ':completion:*:*:kill:*' insert-ids single
 # Man
 zstyle ':completion:*:manuals' separate-sections true
 zstyle ':completion:*:manuals.(^1*)' insert-sections true
-
-# Mutt
-if [[ -s "$HOME/.mutt/aliases" ]]; then
-  zstyle ':completion:*:*:mutt:*' menu yes select
-  zstyle ':completion:*:mutt:*' users ${${${(f)"$(<"$HOME/.mutt/aliases")"}#alias[[:space:]]}%%[[:space:]]*}
-fi
 
 # SSH/SCP/RSYNC
 zstyle ':completion:*:(ssh|scp|rsync):*' tag-order 'hosts:-host:host hosts:-domain:domain hosts:-ipaddr:ip\ address *'
